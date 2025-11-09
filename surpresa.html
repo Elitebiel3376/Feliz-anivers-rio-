@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎉 Surpresa! 🎉</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: #1a0a3d;
+      color: #fff;
+      text-align: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    :root { --neon-color: #b19cff; }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      color: var(--neon-color);
+      text-shadow: 0 0 5px var(--neon-color),0 0 10px var(--neon-color),0 0 20px var(--neon-color),0 0 40px var(--neon-color);
+      animation: neonPulse 1.5s infinite alternate;
+    }
+
+    p {
+      font-size: 1.6rem;
+      margin: 10px 20px;
+      line-height: 1.6;
+      color: var(--neon-color);
+      text-shadow: 0 0 5px var(--neon-color),0 0 10px var(--neon-color);
+      max-width: 600px;
+    }
+
+    @keyframes neonPulse {
+      0%, 100% { text-shadow: 0 0 5px var(--neon-color),0 0 10px var(--neon-color),0 0 20px var(--neon-color),0 0 40px var(--neon-color);}
+      50% { text-shadow: 0 0 20px var(--neon-color),0 0 30px var(--neon-color),0 0 50px var(--neon-color),0 0 80px var(--neon-color);}
+    }
+
+    /* Confetes neon */
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: var(--neon-color);
+      opacity: 0.8;
+      transform: rotate(45deg);
+      animation: fall 5s linear infinite;
+      mix-blend-mode: screen;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-10vh) rotate(0deg); opacity: 0.8; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* Carrossel interativo */
+    .carousel-container {
+      position: relative;
+      width: 320px;
+      height: 320px;
+      margin: 20px auto;
+      overflow: hidden;
+      border-radius: 20px;
+      border: 3px solid var(--neon-color);
+      box-shadow: 0 0 20px var(--neon-color), 0 0 40px var(--neon-color);
+    }
+
+    .carousel img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transition: opacity 1s ease-in-out, transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    .carousel img.active {
+      opacity: 1;
+    }
+
+    .carousel img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Botões de navegação */
+    .prev, .next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--neon-color);
+      color: #1a0a3d;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 0 10px var(--neon-color), 0 0 20px var(--neon-color);
+      z-index: 10;
+      transition: transform 0.2s ease;
+    }
+
+    .prev:hover, .next:hover {
+      transform: translateY(-50%) scale(1.2);
+    }
+
+    .prev { left: 10px; }
+    .next { right: 10px; }
+
+  </style>
+</head>
+<body>
+
+  <h1>Feliz Aniversário! 🎉</h1>
+  <p>Hoje é o seu dia, e quero que saiba algo muito importante: você ilumina a vida de todos ao seu redor com seu sorriso e carinho. Cada momento com você é único e inesquecível. Que este novo ano da sua vida seja cheio de sonhos realizados, alegrias que emocionam e amor sem fim. Nunca esqueça o quanto você é amada e especial.</p>
+
+  <div class="carousel-container">
+    <button class="prev">&#10094;</button>
+    <button class="next">&#10095;</button>
+    <div class="carousel">
+      <img src="foto1.jpg" class="active">
+      <img src="foto2.jpg">
+      <img src="foto3.jpg">
+      <img src="foto4.jpg">
+    </div>
+  </div>
+
+  <audio autoplay loop>
+    <source src="musica.mp3" type="audio/mpeg">
+    Seu navegador não suporta áudio.
+  </audio>
+
+  <script>
+    // Confetes neon
+    for (let i = 0; i < 50; i++) {
+      const confetti = document.createElement('div');
+      confetti.classList.add('confetti');
+      confetti.style.left = Math.random() * 100 + 'vw';
+      confetti.style.animationDuration = (3 + Math.random() * 4) + 's';
+      confetti.style.width = confetti.style.height = (5 + Math.random() * 10) + 'px';
+      document.body.appendChild(confetti);
+    }
+
+    // Carrossel interativo
+    const images = document.querySelectorAll('.carousel img');
+    let current = 0;
+
+    function showImage(index) {
+      images.forEach((img, i) => {
+        img.classList.toggle('active', i === index);
+      });
+    }
+
+    document.querySelector('.prev').addEventListener('click', () => {
+      current = (current - 1 + images.length) % images.length;
+      showImage(current);
+    });
+
+    document.querySelector('.next').addEventListener('click', () => {
+      current = (current + 1) % images.length;
+      showImage(current);
+    });
+  </script>
+
+</body>
+</html>
